@@ -2,19 +2,19 @@
 $serverName = "localhost";
 $userName = "root";
 $password = "";
-$dbName = "QuanLySV";
+$dbName = "QuanLySP";
 
 $conn = new mysqli($serverName,$userName,$password,$dbName);
 if($conn->connect_error) {
     die($conn->connect_error);
 }
-$sql_txt = "select * from Students";
+$sql_txt = "select * from products";
 $result = $conn->query($sql_txt);
 //var_dump($result);die();
 $list = [];
 if($result->num_rows>0) {
     while ($row = $result->fetch_assoc()) {
-       $list[] = $row;
+        $list[] = $row;
     }
 }
 ?>
@@ -40,28 +40,29 @@ if($result->num_rows>0) {
         <tr style="background-color: silver">
             <!--                <th scope="col">STT</th>-->
             <th scope="col">Name</th>
-            <th scope="col">Birth</th>
-            <th scope="col">Address</th>
-            <th scope="col">Email</th>
-            <th scope="col">Phone</th>
+            <th scope="col">Price</th>
+            <th scope="col">Unit</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Description</th>
+            <th scope="col">Status</th>
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($list as $user) :?>
+        <?php foreach ($list as $item) :?>
             <tr>
-                <td><?php echo  $user["studentName"] ; ?></td>
-                <td><?php echo  $user["dateOfBirth"]; ?></td>
-                <td><?php echo  $user["address"]; ?></td>
-                <td><?php echo  $user["email"]; ?></td>
-                <td><?php echo $user["phoneNumber"]; ?></td>
-
+                <td><?php echo  $item["productName"] ; ?></td>
+                <td><?php echo  $item["price"]; ?></td>
+                <td><?php echo  $item["unit"]; ?></td>
+                <td><?php echo  $item["quantity"]; ?></td>
+                <td><?php echo $item["description"]; ?></td>
+                <td><?php echo $item["status"]; ?></td>
                 <td>
-                    <a class="btn btn-info" href="editStudent.php?id=<?php echo $user["id"]; ?>">Edit </a>
+                    <a class="btn btn-info" href="editSP.php?id=<?php echo $item["id"]; ?>">Edit </a>
                 </td>
                 <td>
-                    <a class="btn btn-danger" onclick="return confirm('Are you sure?');" href="deleteStudent.php?id= <?php echo $user["id"]; ?>">Delete </a>
+                    <a class="btn btn-danger" onclick="return confirm('Are you sure?');" href="deleteSP.php?id= <?php echo $item["id"]; ?>">Delete </a>
                 </td>
             </tr>
         <?php endforeach; ?>
@@ -70,3 +71,4 @@ if($result->num_rows>0) {
 </div>
 </body>
 </html>
+
