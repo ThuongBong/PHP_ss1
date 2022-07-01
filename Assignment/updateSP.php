@@ -1,8 +1,8 @@
 <?php
 $id = $_GET["id"];
-if(!$_POST["name"]){
-    header("location: editSP.php?id=".$id);
-}
+//if(!$_POST["name"]){
+//    header("location: editSP.php?id=".$id);
+//}
 $serverName = "localhost";
 $userName = "root";
 $password = "";
@@ -25,5 +25,4 @@ $description = $_POST["description"];
 $status = $_POST["status"];
 $sid = $id;
 $stt->execute();
-die();
-//header("location: tableSP.php");
+header("location: tableSP.php");

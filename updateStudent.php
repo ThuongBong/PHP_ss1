@@ -8,8 +8,8 @@
 //$_SESSION["user"] = $user;
 //echo "DONE";
 $id = $_GET["id"];
-if(!$_POST["email"]){
-    header("location: editStudent.php?id=".$id);
+if(!$_POST["email"]) {
+    header("location: editStudent.php?id=" . $id);
 }
 $serverName = "localhost";
 $userName = "root";

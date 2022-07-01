@@ -38,6 +38,7 @@ if($sp == null) {
     </style>
 </head>
 <body>
+<h2 style="text-align: center">Edit</h2>
 <form method="post" action="updateSP.php?id=<?php echo $sp["id"];?>" class="form_edit">
     <!--    <div class="form-group">-->
     <!--        <button class="btn btn-info" type="submit">Add</button>-->
