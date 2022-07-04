@@ -35,6 +35,29 @@ class Student implements IModel
         }
         return $list;
     }
+    function findOne($id)
+    {
+        //connect db
+        $conn = Connector::createInstance();
+        //truy vấn
+        $sql_txt = "SELECT * FROM Students WHERE ID = ".$id;
+        $result = $conn->query($sql_txt);
+
+        $student = null;
+        if($result->num_rows > 0){
+            while ($row = $result->fetch_assoc()){
+                $student = new self();
+                $student->id = $row['id'];
+                $student->studentName = $row['studentName'];
+                $student->dateOfBirth = $row['dateOfBirth'];
+                $student->address = $row['address'];
+                $student->email = $row['email'];
+                $student->phoneNumber = $row['phoneNumber'];
+            }
+        }
+
+        return $student;
+    }
 
     function save()
     {

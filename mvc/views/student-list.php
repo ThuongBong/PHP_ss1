@@ -24,7 +24,8 @@
                     <th>Phone</th>
                     <th>Address</th>
                     <th>Birthday</th>
-                    <th></th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -38,6 +39,8 @@
                         <td><?php echo $item->dateOfBirth ?></td>
                         <td>
                             <a class="btn btn-primary" href="?page=edit-student&id=<?php echo $item->id;?>">Edit</a>
+                        </td>
+                        <td>
                             <a class="btn btn-danger" onclick="return confirm('Are you sure?');" href="?page=delete-student&id=<?php echo $item->id;?>">Delete</a>
                         </td>
                     </tr>

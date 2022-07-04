@@ -32,20 +32,14 @@ class StudentController
     }
 
     public function editStudent(){
-//        $conn = Connector::createInstance();
-//        $sql_txt = "select * from students where id = ".$_GET["id"];
-//        $result = $conn->query($sql_txt);
-//        //var_dump($result);die();
-//        $student = null;
-//        if($result->num_rows>0) {
-//            while ($row = $result->fetch_assoc()) {
-//                $student = $row;
-//            }
-//        }
-//        if($student == null) {
-//            die("Student not found");
-//        }
-//        include_once "views/editStudent.php";
+        $studentObj = new Student();
+        $student = $studentObj->findOne($_GET['id']);
+        if (!$student) {
+            // truong hop khong tim thay, sua duong dan thi tra ve list
+            header("Location: ?page=student_list");
+        }
+
+        include_once "views/editStudent.php";
     }
 
     public function deleteStudent() {
@@ -59,21 +53,28 @@ class StudentController
     }
 
     public function updateStudent() {
-        $id = $_GET["id"];
-        if(!$_POST["email"]) {
-            header("location: ?page=edit-student &id=". $id);
-        }
         $conn = Connector::createInstance();
-        $sql_txt = "update Students set studentName=?,dateOfBirth=?,address=?,email=?,phoneNumber=? where id=?";
-        $stt = $conn->prepare($sql_txt);
-        $name = $_POST["studentName"];
-        $birth = $_POST["dateOfBirth"];
-        $address = $_POST["address"];
-        $email = $_POST["email"];
-        $phone = $_POST["phoneNumber"];
-        $sid = $id;
-        $stt->bind_param("sssssi",$name,$birth,$address,$email,$phone,$sid);
+
+        //truy vấn thêm một sv
+        $sql_txt = "UPDATE Students SET studentName=?,dateOfBirth=?,address=?,email=?,phoneNumber=? WHERE id = ?";
+        $stt = $conn->createStatement($sql_txt);
+
+        //set params and excute
+        $name = $_POST['studentName'];
+        $birth = $_POST['dateOfBirth'];
+        $address = $_POST['address'];
+        $email = $_POST['email'];
+        $phone = $_POST['phoneNumber'];
+
+        //ID sẽ gán bằng ID được GET
+        $id = $_GET['id'];
+
+        $sID = $id; //bac cau qua ID
+
+        $stt->bind_param("sssssi", $name,$birth,$address, $email, $phone, $sID);   //khai báo 4 biến giả định kiểu string (s), int(i)
         $stt->execute();
-        header("location: ?page=student_list.php");
+
+        //update xong thi dieu huong qua list
+        header("Location: ?page=student_list");
     }
 }
